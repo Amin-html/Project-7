@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ListingCreate from './pages/ListingCreate'
+import ListingList from './pages/ListingList'
+import ListingDetail from './pages/ListingDetail'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/listings" element={<ListingList />} />
+          <Route path="/listings/:id" element={<ListingDetail />} />
           <Route path="/listings/create" element={
             <ProtectedRoute>
               <ListingCreate />
