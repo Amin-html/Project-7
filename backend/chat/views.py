@@ -1,12 +1,12 @@
-from rest_framework import generics, status
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import Message
 from .serializers import MessageSerializer
 from listings.models import Listing
 
-class MessageListAPI(generics.ListAPIView):
+class MessageListAPI(generics.ListCreateAPIView):
     serializer_class = MessageSerializer
-    permission_classes = [ IsAuthenticated ]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         # Сообщения по конкретному объявлению
@@ -21,5 +21,3 @@ class MessageListAPI(generics.ListAPIView):
             sender=self.request.user,
             listing=listing
         )
-
-# Create your views here.

@@ -17,8 +17,7 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-created_at']  # старые сообщения сначала
+        ordering = ['created_at']  # старые сообщения сначала
 
     def __str__(self):
         return f"{self.sender.username}: {self.text[:50]}"
-# Create your models here.

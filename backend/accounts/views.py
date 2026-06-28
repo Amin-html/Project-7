@@ -29,7 +29,8 @@ def register(request):
     return Response({
         'access': str(refresh.access_token),
         'refresh': str(refresh),
-        'username': user.username
+        'username': user.username,
+        'user_id': user.id
     })
 
 # Create your views here.

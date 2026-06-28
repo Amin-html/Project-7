@@ -6,13 +6,13 @@ from categories.models import Category
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = [ 'id', 'name', 'slug', 'icon' ]
+        fields = ['id', 'name', 'slug', 'icon']
 
 class OwnerSerializer(serializers.ModelSerializer):
     # Показываем только нужные поля владельца
     class Meta:
         model = User
-        fields = [ 'id', 'username' ]
+        fields = ['id', 'username']
 
 class ListingSerializer(serializers.ModelSerializer):
     # Вложенные сериализаторы — показываем объекты а не id

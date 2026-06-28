@@ -4,17 +4,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Listing
 from .serializers import ListingSerializer
-from categories.models import Category
-from listings.serializers import CategorySerializer
+from .models import Category
+from .serializers import CategorySerializer
 
 class CategoryListAPI(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [ IsAuthenticatedOrReadOnly ]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-class ListingListAPI(generics.ListAPIView):
+class ListingListAPI(generics.ListCreateAPIView):
     serializer_class = ListingSerializer
-    permission_classes = [ IsAuthenticatedOrReadOnly ]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         queryset = Listing.objects.filter(status='active')
@@ -30,12 +30,13 @@ class ListingListAPI(generics.ListAPIView):
             queryset = queryset.filter(title__icontains=query)
         if location:
             queryset = queryset.filter(location__icontains=location)
+
         return queryset
 
 class ListingDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
-    permission_classes = [ IsAuthenticatedOrReadOnly ]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def update(self, request, *args, **kwargs):
         listing = self.get_object()
@@ -55,14 +56,12 @@ class ListingDetailAPI(generics.RetrieveUpdateDestroyAPIView):
                 {'error': 'Нет прав'},
                 status=status.HTTP_403_FORBIDDEN
             )
-        return super().delete(request, *args, **kwargs)
+        return super().destroy(request, *args, **kwargs)
 
-class MyListingAPI(generics.ListAPIView):
+class MyListingsAPI(generics.ListAPIView):
     serializer_class = ListingSerializer
-    permission_classes = [ IsAuthenticatedOrReadOnly ]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         # Только объявления текущего пользователя
         return Listing.objects.filter(owner=self.request.user)
-
-# Create your views here.

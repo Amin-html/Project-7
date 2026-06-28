@@ -1,12 +1,11 @@
 from django.db import models
 
 class Category(models.Model):
-    name = models.CharField(max_length=100) # Электроника, Одежда, Авто
+    name = models.CharField(max_length=100)   # Электроника, Одежда, Авто
     slug = models.SlugField(unique=True)
     icon = models.CharField(max_length=10, default='📦')  # эмодзи иконка
 
     def __str__(self):
         return self.name
-
 
 # Create your models here.
