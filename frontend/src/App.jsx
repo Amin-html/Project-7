@@ -8,6 +8,7 @@ import Register from './pages/Register'
 import ListingCreate from './pages/ListingCreate'
 import ListingList from './pages/ListingList'
 import ListingDetail from './pages/ListingDetail'
+import MyListings from './pages/MyListings'
 
 function App() {
   return (
@@ -25,6 +26,11 @@ function App() {
               <ListingCreate />
             </ProtectedRoute>
           } />
+          <Route path="/my-listings" element={
+          <ProtectedRoute>
+            <MyListings />
+          </ProtectedRoute>
+        } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
